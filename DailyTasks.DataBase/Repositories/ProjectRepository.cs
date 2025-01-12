@@ -7,10 +7,9 @@ namespace DailyTasks.DataBase.Repositories
 	{
 		private readonly MainDbContext _db = mainDbContext;
 
-		public async Task<List<string>> Get()
+		public async Task<List<ProjectEntity>> Get()
 		{
 			return await _db.Projects
-				.Select(x => x.Name)
 				.ToListAsync();
 		}
 

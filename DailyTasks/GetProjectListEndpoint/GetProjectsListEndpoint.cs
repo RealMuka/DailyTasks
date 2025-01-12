@@ -15,7 +15,9 @@ namespace DailyTasks.API.GetProjectListEndpoint
 
 		public override async Task HandleAsync(CancellationToken ct)
 		{
-			await _repository.Get();
+			var responce = await _repository.Get();
+
+			await SendAsync(responce);
 		}
 	}
 }
