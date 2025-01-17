@@ -10,6 +10,7 @@ namespace DailyTasks.DataBase.Repositories
 		public async Task Add(string name, string description, DateTime deadLine, int projectId)
 		{
 			ProjectEntity? project = await _db.Projects
+				.Include(p => p.Tasks)
 				.FirstOrDefaultAsync(p => p.Id == projectId);
 
 			var task = new TaskEntity
@@ -23,6 +24,8 @@ namespace DailyTasks.DataBase.Repositories
 				ProjectId = project.Id,
 				IsCompleted = false
 			};
+
+			project.Tasks.Add(task);
 
 			await _db.Tasks.AddAsync(task);
 			await _db.SaveChangesAsync();

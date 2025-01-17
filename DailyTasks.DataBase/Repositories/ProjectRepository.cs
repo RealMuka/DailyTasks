@@ -13,6 +13,13 @@ namespace DailyTasks.DataBase.Repositories
 				.ToListAsync();
 		}
 
+		public async Task<ProjectEntity?> GetById(int id)
+		{
+			return await _db.Projects
+				.AsNoTracking()
+				.FirstOrDefaultAsync(x => x.Id == id);
+		}
+
 		public async Task Add(string name, string description, DateTime DeadLienTime)
 		{
 			ProjectEntity project = new ProjectEntity()
