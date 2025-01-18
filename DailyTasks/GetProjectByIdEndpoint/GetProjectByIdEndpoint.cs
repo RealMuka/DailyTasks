@@ -20,10 +20,17 @@ namespace DailyTasks.API.GetProjectByIdEndpoint
 
 				var project = await _projectRepository.GetById(id);
 
-				await SendAsync(new GetProjectByIdResponse
+				if(project != null)
 				{
-					Project = project
-				});
+					await SendAsync(new GetProjectByIdResponse
+					{
+						Project = project
+					});
+				}
+				else
+				{
+					await SendStringAsync("Project id is invalid");
+				}
 			}
 		}
 }
